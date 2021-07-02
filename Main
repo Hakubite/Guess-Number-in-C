@@ -1,0 +1,101 @@
+// Include libraly iostream, ctime
+#include <iostream>
+#include <ctime>
+
+// Use STD NameSpace
+using namespace std; 
+
+
+void PrintIntroduction(int Difficulty)
+{
+    std::cout << "\nJsi tajny agent vloupajici se do tajne " << Difficulty << " levelove server mistnosti\n";
+    std::cout << "Zadej spravny kod aby jsi se dostal dovnitr\n\n";
+    std::cout << R"(
+    00000            00000        7777777777777777/========___________
+   00000000         00000000      7777^^^^^^^7777/ || ||   ___________
+  000    000       000    000     777       7777/=========//
+ 000      000     000      000             7777// ((     //
+0000      0000   0000      0000           7777//   \\   //
+0000      0000   0000      0000          7777//========//
+0000      0000   0000      0000         7777
+0000      0000   0000      0000        7777
+ 000      000     000      000        7777
+  000    000       000    000       77777
+   00000000         00000000       7777777
+     0000             0000        777777777        
+)" << '\n' << '\n' << '\n';
+}
+
+
+bool PlayGame(int Difficulty)
+{
+    // Print Welcome Message to terminal.
+    PrintIntroduction(Difficulty);
+
+    // Declaration  
+    const int CodeA = rand() % Difficulty + Difficulty;
+    const int CodeB = rand() % Difficulty + Difficulty;
+    const int CodeC = rand() % Difficulty + Difficulty;
+
+    int GuessA;
+    int GuessB;
+    int GuessC;
+
+    int CodeSum = CodeA + CodeB + CodeC;
+    int CodeProduct = CodeA * CodeB * CodeC;
+
+    // Terminal
+    std::cout << "+ Kod je 3 mistny\n";
+    std::cout << "+ Secteny kod je " << CodeSum << "\n";
+    std::cout << "+ Vynasobeny kod je " << CodeProduct << "\n\n";
+    std::cout << "Prosim, napiste prvni cislo kodu: \n";
+    std::cin  >> GuessA;
+    std::cout << "Prosim, napiste druhe cislo kodu: \n";
+    std::cin  >> GuessB;
+    std::cout << "Prosim, napiste treti cislo kodu: \n";
+    std::cin  >> GuessC;
+
+    // Declaration
+    int GuessSum = GuessA + GuessB + GuessC;
+    int GuessProduct = GuessA * GuessB * GuessC;
+
+    // Check if player guess is correct 
+    if (GuessSum == CodeSum && GuessProduct == CodeProduct)
+    {
+        if (Difficulty = 5)
+        {
+            
+        } else {
+            std::cout << "\nDostal jsi se do " << Difficulty << " level server mistnosti a pokracujes dal\n";
+        }
+        return true;
+    } else 
+    {
+        std::cout << "\nAle ne, zadal jsi spatny kod a security te chytilo, zkus to znovu!";
+        return false;
+    }
+
+}
+
+// Main function
+int main()
+{
+    srand(time(NULL));
+    int bLevelDifficulty = 1;
+    const int bMaxLevelDifficulty = 5;
+    while(bLevelDifficulty <= bMaxLevelDifficulty)
+    { 
+        bool bLevelCompleted = PlayGame(bLevelDifficulty);
+        std::cin.clear();
+        std::cin.ignore();
+
+        if (bLevelCompleted)
+        {
+           ++bLevelDifficulty;
+        }
+        
+
+    }
+    std::cout << "Dostal jsi se pres vsech 5 levelu server mistnostnich kodu a vyhral jsi hru!";
+    return 0;
+}
